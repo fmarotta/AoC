@@ -12,15 +12,10 @@ function predict_next(seq)
 end
 
 function compute(l; part = 1)
-    res = 0
-    for seq in l
-        if 2 == part
-            res -= predict_next(reverse(-seq))[end]
-        else
-            res += predict_next(seq)[end]
-        end
+    if 2 == part
+        l = reverse.(l)
     end
-    return res
+    return sum(predict_next(seq)[end] for seq in l)
 end
 
 l = read_puzzle("input")
