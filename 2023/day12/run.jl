@@ -60,7 +60,7 @@ function check_part(part, blocks, memo = Dict())
             return 0
         end
         result = check_part(part, bb, memo)
-        memo[(part, join(bb))] = result
+        memo[(part, bb)] = result
         return result
     elseif startswith(part, '?')
         p1 = check_part(part[2:end], blocks, memo)
@@ -74,7 +74,7 @@ function check_part(part, blocks, memo = Dict())
             return p1
         end
         p2 = check_part(part, bb, memo)
-        memo[(part, join(bb))] = p2
+        memo[(part, bb)] = p2
         return p1 + p2
     end
 end
