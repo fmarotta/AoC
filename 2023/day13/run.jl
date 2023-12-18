@@ -14,15 +14,8 @@ function find_reflection(pattern, n_smudges = 0)
     n = size(pattern, 1)
     for r in 1:n-1
         # is there a reflection between row r and r+1?
-        n_diffs = 0
-        i = 1
-        while 0 < r-i+1 && r+i <= n
-            n_diffs += sum(pattern[r-i+1, :] .!= pattern[r+i, :])
-            if n_diffs > n_smudges
-                break
-            end
-            i += 1
-        end
+        i = min(r, n-r)
+        n_diffs = sum(pattern[r-i+1:r, :] .!= pattern[r+i:-1:r+1, :])
         if n_diffs == n_smudges
             return r
         end
