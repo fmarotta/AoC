@@ -24,11 +24,11 @@ function part2(numlines, ops)
     nums = [numlines[i][j] for i in eachindex(numlines), j in eachindex(numlines[1])]
     col = 1
     part2 = 0
-    for problem in eachindex(ops)
-        tot, op = if ops[problem] == "+"
-            0, +
-        elseif ops[problem] == "*"
-            1, *
+    for op in ops
+        tot = if op == "+"
+            0
+        elseif op == "*"
+            1
         end
         # characters are joined column by column
         while col <= size(nums, 2)
@@ -40,7 +40,11 @@ function part2(numlines, ops)
             end
             col += 1
             if r != 0
-                tot = op(tot, r)
+                tot = if op == "+"
+                    tot + r
+                elseif op == "*"
+                    tot * r
+                end
             else
                 break
             end
